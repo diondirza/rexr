@@ -1,0 +1,16 @@
+# output folder
+**/build/*
+**/dist/*
+# project folder
+static/*
+
+# library specific folder
+coverage/*
+flow-typed/*
+lib/*
+
+# dependencies folder
+**/node_modules/*
+
+# entry of sw
+base-sw.js

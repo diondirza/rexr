@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "checkJs": true,
+    "target": "es2018",
+    "paths": {
+      "@/*": ["./client/*"],
+      "@components/*": ["./client/components/*"],
+      "@context/*": ["./client/context/*"],
+      "@helpers/*": ["./client/helpers/*"],
+      "@store/*": ["./client/redux/modules/*"],
+      "@styles/*": ["./client/styles/*"]
+    }
+  },
+  "exclude": ["build", "docker", "node_modules"]
+}

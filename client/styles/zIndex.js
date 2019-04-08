@@ -1,0 +1,12 @@
+export const zIndex1 = 1;
+export const zIndex2 = 2;
+export const zIndex3 = 3;
+export const zIndex4 = 4;
+export const zIndex5 = 5;
+export const zIndex99 = 99;
+export const zIndexMax = 9999;
+export const overlay = 99999;
+export const zIndexBehindMax = -1;
+export const zIndexBeforeMax1 = 9998;
+export const zIndexBeforeMax2 = 9997;
+export const zIndexBeforeMax3 = 9996;
