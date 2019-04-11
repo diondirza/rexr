@@ -30,11 +30,7 @@ const developmentPlugins = () => {
     // need to lazy load this plugin
     const StartServerPlugin = require('start-server-webpack-plugin');
 
-    return [
-      new StartServerPlugin('index.js'),
-      new webpack.HotModuleReplacementPlugin(),
-      new FriendlyErrorsWebpackPlugin(),
-    ];
+    return [new StartServerPlugin('index.js'), new webpack.HotModuleReplacementPlugin()];
   }
 
   return [];
@@ -269,8 +265,13 @@ const webpackConfig = {
      * Elegant ProgressBar and Profiler
      */
     new WebpackBar({
-      color: '#83cd29', // rexr color
+      color: '#83cd29',
     }),
+
+    /**
+     * Error formatter
+     */
+    new FriendlyErrorsWebpackPlugin(),
 
     /**
      * Enable source map on server

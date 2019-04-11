@@ -3,58 +3,65 @@ const debug = require('debug')('rexr');
 debug('Starting...');
 
 import config from '@config';
-import Koa from 'koa';
-import compress from 'koa-compress';
-import userAgent from 'koa-useragent';
+import appRootDir from 'app-root-dir';
+import fastify from 'fastify';
+import compress from 'fastify-compress';
+import cors from 'fastify-cors';
+import helmet from 'fastify-helmet';
+import redis from 'fastify-redis';
+import brotli from 'iltorb';
+import path from 'path';
 import Loadable from 'react-loadable';
 
-import cors from './middlewares/cors';
-import errorHandler from './middlewares/errorHandler';
-import logger from './middlewares/logger';
-import serve from './middlewares/serve';
-import addSecurity from './middlewares/addSecurity';
-import session from './middlewares/session';
 import handleError from './handleError';
+import corsOptions from './options/cors';
+import redisOptions from './options/redis';
 import renderer from './renderer';
 
 const HOST = config.get('HOST');
 const PORT = config.get('PORT');
-const SECRET = config.get('SECRET');
 
-const app = new Koa();
+const app = fastify({
+  logger: config.get('FLAGS.LOGGER') ? config.get('LOG_CONFIG') : false,
+  trustProxy: __PROD__,
+});
 
-app.keys = [SECRET];
-
-app.on('error', handleError);
-
-app.use(logger());
-
-app.use(errorHandler);
+app.setErrorHandler(handleError);
 
 if (__PROD__) {
-  app.proxy = true;
-  addSecurity(app);
+  app.register(helmet);
 }
 
-app.use(userAgent);
+app.register(cors, corsOptions);
 
-app.use(cors);
-
-app.use(compress());
+app.register(compress, { brotli });
 
 if (__DEV__) {
-  app.use(serve('../../static'));
+  app.register(require('fastify-static'), {
+    root: path.resolve(appRootDir.get(), 'static'),
+    wildcard: false,
+  });
 }
 
-app.use(session(app));
+app.register(redis, redisOptions);
 
-app.use(renderer);
+app.register(renderer, { ssr: config.get('SSR_STATUS') === true });
 
-Loadable.preloadAll().then(() => {
-  if (__PROD__) {
-    app.listen(PORT);
-    debug(`rexr the server-side renderer, running at http://${HOST}:${PORT}`);
+const startServer = async () => {
+  try {
+    await Loadable.preloadAll();
+
+    if (__PROD__) {
+      const address = await app.listen(PORT, HOST);
+
+      app.log.info(`rexr the server-side renderer, listening at ${address}`);
+    }
+  } catch (err) {
+    app.log.error(err);
+    process.exit(1);
   }
-});
+};
+
+startServer();
 
 export default app;

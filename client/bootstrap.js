@@ -11,7 +11,7 @@ import App from './App';
 const history = createBrowserHistory();
 
 Loadable.preloadReady().then(() => {
-  const container = document.getElementById('content');
+  const container = document.getElementById('app');
 
   checkWebPSupport();
   render(<App history={history} />, container);

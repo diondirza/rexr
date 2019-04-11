@@ -53,7 +53,7 @@ export const getHeader = ({
   </head>
   <body ${helmet.bodyAttributes.toString()}>
     <noscript>This website need to enable Javascript to view.</noscript>
-    <div id="content">`;
+    <div id="app">`;
 };
 
 export const getFooter = ({
