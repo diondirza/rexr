@@ -43,7 +43,7 @@ export default function template({
   `;
 
   return [
-    `<!DOCTYPE html>
+    `
 <html ${helmet.htmlAttributes.toString()}>
   <head>
     ${helmet.base.toString()}${helmet.title.toString()}

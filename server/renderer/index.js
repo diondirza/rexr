@@ -113,6 +113,7 @@ const renderer = (fastify, opts, next) => {
         return;
       }
 
+      transformStream.write('<!DOCTYPE html>');
       bodyStream.pipe(
         transformStream,
         { end: false },

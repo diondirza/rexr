@@ -16,13 +16,13 @@ class HTMLTransform extends Transform {
     // We store the chunk of data (which is a Buffer) in memory
     this.bufferedChunks.push(data);
 
-    if (this.bufferedChunks.length === 1) {
+    if (this.bufferedChunks.length === 2) {
       // first chunk should not be passed to the stream
       return cb(null);
     }
 
-    if (this.bufferedChunks.length === 2) {
-      const [body, head] = this.bufferedChunks;
+    if (this.bufferedChunks.length === 3) {
+      const [, body, head] = this.bufferedChunks;
 
       // 2nd chunk should be swapped and write to the stream
       return cb(null, Buffer.concat([head, body]));
