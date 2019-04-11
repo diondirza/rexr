@@ -5,15 +5,14 @@ import { renderToNodeStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Loadable from 'react-loadable';
-import CombinedStream from 'combined-stream';
 // import { isSupported } from 'caniuse-api';
 // import { get } from 'lodash';
 
 import ContextProvider from '@context';
 import Routes from '@routes';
-import { getHeader, getFooter } from './html-template';
+import htmlTemplate from './htmlTemplate';
 import getBundles from './getBundles';
-import createCacheStream from './createCacheStream';
+import HTMLTransform from './HTMLTransform';
 import getInitialState from './getInitialState';
 
 const renderer = (fastify, opts, next) => {
@@ -29,8 +28,6 @@ const renderer = (fastify, opts, next) => {
   }
 
   fastify.get('/*', async (request, reply) => {
-    debug(`server side render test ${request.raw.url}`);
-
     global.webpSupport = true;
 
     // TODO: Rework on preloadScripts
@@ -42,11 +39,12 @@ const renderer = (fastify, opts, next) => {
           counter: 0,
         },
       };
+      const [header, footer] = htmlTemplate(htmlStates);
 
       reply
         .code(status)
         .type('text/html; charset=utf-8')
-        .send(`${getHeader()}${getFooter(htmlStates)}`);
+        .send(`${header}${footer}`);
     };
 
     if (!opts.ssr) {
@@ -56,7 +54,7 @@ const renderer = (fastify, opts, next) => {
 
     // PassThrough is a dummy Transform stream, simply for converting our response
     // to be a Transform stream type, without changing any chunks.
-    const transformStream = createCacheStream(request.raw.path, false);
+    const transformStream = new HTMLTransform({ cacheKey: request.raw.path, redis: fastify.redis });
     const helmetContext = {};
     const routerContext = {};
 
@@ -93,12 +91,10 @@ const renderer = (fastify, opts, next) => {
       //   global.webpSupport = false;
       // }
 
-      const combinedStream = CombinedStream.create();
-      const body = renderToNodeStream(app);
+      const bodyStream = renderToNodeStream(app);
       let htmlStates = {
         scripts: [] /* preloadScripts */,
         initialGlobalState,
-        helmet: helmetContext.helmet,
       };
 
       global.navigator = { userAgent: request.headers['user-agent'], referer: request.headers.referer };
@@ -117,19 +113,20 @@ const renderer = (fastify, opts, next) => {
         return;
       }
 
-      htmlStates = {
-        ...htmlStates,
-        bundles: getBundles(stats, modules),
-      };
-
-      combinedStream.append(getHeader(htmlStates));
-      combinedStream.append(body);
-      combinedStream.pipe(
+      bodyStream.pipe(
         transformStream,
         { end: false },
       );
-      combinedStream.on('end', () => {
-        transformStream.end(getFooter(htmlStates));
+      bodyStream.on('end', () => {
+        htmlStates = {
+          ...htmlStates,
+          bundles: getBundles(stats, modules),
+          helmet: helmetContext.helmet,
+        };
+        const [header, footer] = htmlTemplate(htmlStates);
+
+        transformStream.write(header);
+        transformStream.end(footer);
       });
 
       reply

@@ -12,9 +12,8 @@ const ifProd = ifElse(__PROD__);
 const assets = getClientAssets();
 const { GTM_CONTAINER_ID = '' } = constants;
 
-export const getHeader = ({
+export default function template({
   bundles = [],
-  scripts = [],
   helmet = {
     base: [],
     bodyAttributes: [],
@@ -25,14 +24,26 @@ export const getHeader = ({
     style: [],
     title: [],
   },
-} = {}) => {
+  initPageviewInitial = {},
+  initialGlobalState,
+  scripts = [],
+  xdevice,
+} = {}) {
   const bundleScripts = bundles.filter(src => /[.]js$/i.test(src)) || [];
+  const bundleStyles = bundles.filter(src => /[.]css$/i.test(src)) || [];
   const preloadedAssetScripts = scripts
     .map(script => createPreloadTag({ as: 'script', href: get(assets, `[${script}].js`) }))
     .join('\n\t');
   const preloadedBundleScripts = bundleScripts.map(src => createPreloadTag({ as: 'script', href: src })).join('\n\t');
+  const isMobileApp = /^(ios|android)-+/.test(xdevice);
+  const gtmContainerId = GTM_CONTAINER_ID;
+  const gtmTrackingScript = `
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${gtmContainerId}" height="0" width="0" style="display: none; visibility: hidden;"></iframe></noscript>
+    <script type="text/javascript">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmContainerId}');</script>
+  `;
 
-  return `<!DOCTYPE html>
+  return [
+    `<!DOCTYPE html>
 <html ${helmet.htmlAttributes.toString()}>
   <head>
     ${helmet.base.toString()}${helmet.title.toString()}
@@ -53,35 +64,8 @@ export const getHeader = ({
   </head>
   <body ${helmet.bodyAttributes.toString()}>
     <noscript>This website need to enable Javascript to view.</noscript>
-    <div id="app">`;
-};
-
-export const getFooter = ({
-  initPageviewInitial = {},
-  initialGlobalState,
-  xdevice,
-  bundles = [],
-  helmet = {
-    base: [],
-    bodyAttributes: [],
-    htmlAttributes: [],
-    link: [],
-    meta: [],
-    script: [],
-    style: [],
-    title: [],
-  },
-} = {}) => {
-  const isMobileApp = /^(ios|android)-+/.test(xdevice);
-  const gtmContainerId = GTM_CONTAINER_ID;
-  const bundleScripts = bundles.filter(src => /[.]js$/i.test(src)) || [];
-  const bundleStyles = bundles.filter(src => /[.]css$/i.test(src)) || [];
-  const gtmTrackingScript = `
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${gtmContainerId}" height="0" width="0" style="display: none; visibility: hidden;"></iframe></noscript>
-    <script type="text/javascript">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmContainerId}');</script>
-  `;
-
-  return `</div>
+    <div id="app">`,
+    `</div>
     <script type="text/javascript">
       window.initialGlobalState=${serialize(initialGlobalState)};
       window.__ismobileapp =${isMobileApp};
@@ -98,5 +82,6 @@ export const getFooter = ({
     ${helmet.script.toString()}
     ${ifProd(gtmTrackingScript, '')}
   </body>
-</html>`;
-};
+</html>`,
+  ];
+}

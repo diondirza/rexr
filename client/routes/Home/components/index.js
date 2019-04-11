@@ -1,4 +1,5 @@
 import React, { useContext, useCallback } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import { GlobalContext } from '@context/global';
 import { Button } from '../styles';
@@ -11,15 +12,21 @@ const HomeView = () => {
   }, [globalDispatch]);
 
   return (
-    <div>
-      Hello world!
-      <br />
-      Current counter value: {count}
-      <br />
-      <Button type="button" onClick={incrementCounter}>
-        Click me to increase counter by 1
-      </Button>
-    </div>
+    <>
+      <Helmet>
+        <title>Hello World</title>
+        <link rel="canonical" href="https://www.rexr.com/" />
+      </Helmet>
+      <div>
+        Hello world!
+        <br />
+        Current counter value: {count}
+        <br />
+        <Button type="button" onClick={incrementCounter}>
+          Click me to increase counter by 1
+        </Button>
+      </div>
+    </>
   );
 };
 

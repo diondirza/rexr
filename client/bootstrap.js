@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { render, hydrate } from 'react-dom';
 import Loadable from 'react-loadable';
 import { createBrowserHistory } from 'history';
 
@@ -12,9 +12,10 @@ const history = createBrowserHistory();
 
 Loadable.preloadReady().then(() => {
   const container = document.getElementById('app');
+  const bootstrap = window.csr ? render : hydrate;
 
   checkWebPSupport();
-  render(<App history={history} />, container);
+  bootstrap(<App history={history} />, container);
 });
 
 // this object is used by ImageHolder components to keep track of already loaded images
