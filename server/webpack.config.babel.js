@@ -254,11 +254,11 @@ const webpackConfig = {
      * Define variable on build time
      */
     new webpack.DefinePlugin({
-      __DEV__: isDev,
-      __PROD__: isProd,
       __CLIENT__: false,
-      __SERVER__: true,
+      __DEV__: isDev,
       __GITREV__: gitRevision,
+      __PROD__: isProd,
+      __SERVER__: true,
       constants: JSON.stringify({ ...constants }),
     }),
 

@@ -24,8 +24,8 @@ export default function template({
     style: [],
     title: [],
   },
-  initPageviewInitial = {},
   initialGlobalState,
+  initialCacheState,
   scripts = [],
   xdevice,
 } = {}) {
@@ -68,9 +68,8 @@ export default function template({
     `</div>
     <script type="text/javascript">
       window.initialGlobalState=${serialize(initialGlobalState)};
+      window.__cache=${serialize(initialCacheState)};
       window.__ismobileapp =${isMobileApp};
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push(${serialize(initPageviewInitial)});
       window.NODE_ENV="${config.get('ENV')}";
       window.version="${__GITREV__}";
       window.xdevice="${xdevice}";

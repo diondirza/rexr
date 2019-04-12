@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { bool, func, node } from 'prop-types';
 
+import { canUseDOM } from '@helpers/env';
 import ErrorView from '@components/ErrorView';
 
 class ErrorBoundary extends PureComponent {
@@ -30,7 +31,7 @@ class ErrorBoundary extends PureComponent {
       console.groupEnd();
     }
 
-    if (window.Raven) {
+    if (canUseDOM && window.Raven) {
       window.Raven.captureException(error, { extra: info });
     }
 

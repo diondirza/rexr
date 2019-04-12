@@ -45,7 +45,7 @@ if (__DEV__) {
 
 app.register(redis, redisOptions);
 
-app.register(renderer, { ssr: config.get('SSR_STATUS') === true });
+app.register(renderer, { ssr: config.get('SSR_STATUS') });
 
 const startServer = async () => {
   try {

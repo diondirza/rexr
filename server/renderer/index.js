@@ -5,11 +5,17 @@ import { renderToNodeStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Loadable from 'react-loadable';
+import fetch from 'node-fetch';
+import { GraphQLClient, ClientContext as GraphQLContext } from 'graphql-hooks';
+import memCache from 'graphql-hooks-memcache';
+import { getInitialState as getGqlCacheState } from 'graphql-hooks-ssr';
+
 // import { isSupported } from 'caniuse-api';
 // import { get } from 'lodash';
 
 import ContextProvider from '@context';
 import Routes from '@routes';
+import ErrorBoundary from '@components/ErrorBoundary';
 import htmlTemplate from './htmlTemplate';
 import getBundles from './getBundles';
 import HTMLTransform from './HTMLTransform';
@@ -64,15 +70,25 @@ const renderer = (fastify, opts, next) => {
     };
 
     const initialGlobalState = getInitialState();
+    const gqlClient = new GraphQLClient({
+      url: '/graphql',
+      fetch,
+      ssrMode: opts.ssr,
+      cache: memCache(),
+    });
 
-    const app = (
+    const App = (
       <Loadable.Capture report={report}>
         <HelmetProvider context={helmetContext}>
-          <StaticRouter location={request.raw.url} context={routerContext}>
-            <ContextProvider initialGlobalState={initialGlobalState}>
-              <Routes />
-            </ContextProvider>
-          </StaticRouter>
+          <ContextProvider initialGlobalState={initialGlobalState}>
+            <GraphQLContext.Provider value={gqlClient}>
+              <ErrorBoundary>
+                <StaticRouter location={request.raw.url} context={routerContext}>
+                  <Routes />
+                </StaticRouter>
+              </ErrorBoundary>
+            </GraphQLContext.Provider>
+          </ContextProvider>
         </HelmetProvider>
       </Loadable.Capture>
     );
@@ -91,10 +107,12 @@ const renderer = (fastify, opts, next) => {
       //   global.webpSupport = false;
       // }
 
-      const bodyStream = renderToNodeStream(app);
+      const initialCacheState = await getGqlCacheState({ App, client: gqlClient });
+      const bodyStream = renderToNodeStream(App);
       let htmlStates = {
         scripts: [] /* preloadScripts */,
         initialGlobalState,
+        initialCacheState,
       };
 
       global.navigator = { userAgent: request.headers['user-agent'], referer: request.headers.referer };
