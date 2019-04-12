@@ -77,6 +77,7 @@ const webpackConfig = {
    */
   entry: {
     index: [
+      'make-promises-safe',
       'core-js/stable',
       'regenerator-runtime/runtime',
       'node-fetch',
