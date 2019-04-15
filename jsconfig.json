@@ -8,8 +8,10 @@
       "@components/*": ["./client/components/*"],
       "@context/*": ["./client/context/*"],
       "@helpers/*": ["./client/helpers/*"],
+      "@hooks/*": ["./client/hooks/*"],
+      "@routes/*": ["./client/routes/*"],
       "@store/*": ["./client/redux/modules/*"],
-      "@styles/*": ["./client/styles/*"]
+      "@styles/*": ["./client/styles/*"],
     }
   },
   "exclude": ["build", "docker", "node_modules"]
