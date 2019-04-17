@@ -14,7 +14,7 @@ const startDevServer = () => {
       debug(err);
       process.exit(1);
     } else {
-      debug(`Bumblebee, the server-side renderer, listening on ${address} env:${process.env.NODE_ENV}`);
+      debug(`ReXR, the server-side renderer, listening on ${address} env:${process.env.NODE_ENV}`);
     }
   });
 };
