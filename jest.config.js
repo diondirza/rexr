@@ -18,9 +18,11 @@ module.exports = {
   },
   moduleNameMapper: {
     '^@/': '<rootDir>/client$1',
+    '^@context(.*)$': '<rootDir>/client/context$1',
     '^@components(.*)$': '<rootDir>/client/components$1',
     '^@helpers(.*)$': '<rootDir>/client/helpers$1',
-    '^@store(.*)$': '<rootDir>/client/redux/modules$1',
+    '^@routes(.*)$': '<rootDir>/client/routes$1',
+    '^@hooks(.*)$': '<rootDir>/client/hooks$1',
     '^@styles(.*)$': '<rootDir>/client/styles$1',
   },
   testMatch: ['<rootDir>/client/**/__tests__/**/*.{js,jsx}', '<rootDir>/client/**/?(*.)(spec|test).{js,jsx}'],
