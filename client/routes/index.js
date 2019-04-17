@@ -5,11 +5,13 @@ import { Route, Switch } from 'react-router-dom';
 import Layout from '@components/Layout';
 
 import HomeComponent from '@routes/Home';
+import AboutComponent from '@routes/About';
 // #endregion
 
 const Routes = ({ history, location, match }) => (
   <Layout history={history} location={location} match={match}>
     <Switch>
+      <Route path="/about" component={AboutComponent} />
       <Route exact path="/" component={HomeComponent} />
     </Switch>
   </Layout>
