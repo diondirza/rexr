@@ -31,6 +31,8 @@ webpackClientConfig.plugins = [
 ];
 
 webpackClientConfig.devServer = {
+  clientLogLevel: 'none',
+  compress: true,
   contentBase: path.resolve(appRootDir.get(), 'static'),
   headers: {
     'Access-Control-Allow-Origin': '*',
@@ -40,15 +42,13 @@ webpackClientConfig.devServer = {
   historyApiFallback: true,
   host,
   hot: true,
-  logLevel: 'silent',
   open: true,
   port,
   publicPath: webpackClientConfig.output.publicPath,
   quiet: true,
+  watchContentBase: true,
   watchOptions: {
-    aggregateTimeout: 300,
     ignored: /node_modules/,
-    poll: 1000,
   },
 };
 

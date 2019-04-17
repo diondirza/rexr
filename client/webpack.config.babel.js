@@ -86,15 +86,7 @@ const webpackConfig = {
    * the default is production
    */
   optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /node_modules/,
-          chunks: 'initial',
-          filename: ifDev('vendor.js', 'vendor.[chunkhash].js'),
-        },
-      },
-    },
+    minimize: isProd,
     minimizer: ifProd([
       new TerserPlugin({
         cache: true,
@@ -121,6 +113,15 @@ const webpackConfig = {
         canPrint: false,
       }),
     ]),
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /node_modules/,
+          chunks: 'initial',
+          filename: ifDev('vendor.js', 'vendor.[chunkhash].js'),
+        },
+      },
+    },
   },
 
   resolve: {
