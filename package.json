@@ -78,20 +78,6 @@
       }
     }
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "linters": {
-      "*.js": [
-        "pretty-quick --staged",
-        "eslint --fix",
-        "git add"
-      ]
-    }
-  },
   "dependencies": {
     "@babel/polyfill": "7.4.3",
     "@babel/runtime-corejs3": "7.4.3",
