@@ -78,6 +78,20 @@
       }
     }
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.js": [
+        "pretty-quick --staged",
+        "eslint --fix",
+        "git add"
+      ]
+    }
+  },
   "dependencies": {
     "@babel/polyfill": "7.4.3",
     "@babel/runtime-corejs3": "7.4.3",
@@ -202,6 +216,7 @@
     "postcss-preset-env": "6.6.0",
     "postcss-safe-parser": "4.0.1",
     "prettier": "1.17.0",
+    "pretty-quick": "1.10.0",
     "react-testing-library": "6.1.2",
     "start-server-webpack-plugin": "2.2.5",
     "style-loader": "0.23.1",
