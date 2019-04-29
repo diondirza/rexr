@@ -1,0 +1,20 @@
+# output folder
+**/build/*
+**/dist/*
+
+# project folder
+static/*
+
+# library specific folder
+coverage/*
+flow-typed/*
+lib/*
+
+# dependencies folder
+**/node_modules/*
+
+# typescript definition files
+**/*.d.ts
+
+# entry of sw
+base-sw.js

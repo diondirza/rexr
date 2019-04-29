@@ -1,0 +1,21 @@
+{
+  "name": "rexr",
+  "short_name": "rexr",
+  "lang": "en-ID",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#61dbfb",
+  "background_color": "#000000",
+  "orientation": "portrait",
+  "gcm_sender_id": "540868316921",
+  "permissions": ["gcm"],
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "related_applications": [
+  ]
+}

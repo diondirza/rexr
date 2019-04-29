@@ -1,0 +1,50 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+
+# testing
+coverage
+
+# build
+**/build
+webpack-stats.json
+
+
+# PID
+pid*
+
+# misc
+.babelCache
+.DS_Store
+.DS_STORE
+.env*
+!.env.example
+
+# package manager logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# GIT
+*.orig
+
+# editor
+.idea
+.vscode
+
+# local certificates
+.ssl
+
+__snapshots__/
+logs/
+*.report.html
+*.log
+*.log.*.gz
+
+!scripts/logs/
+!.gitkeep
+dump.rdb
+
+# dev helpers file
+*/**/routes/index.dev.js

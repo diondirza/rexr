@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "allowJs": true,
+    "baseUrl": "client",
+    "esModuleInterop": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "module": "esNext",
+    "noEmit": true,
+    "strict": true,
+    "paths": {
+      "@components/*": ["components/*"],
+      "@config": ["../config/index"],
+      "@constants": ["../constants/index"],
+      "@context": ["context/index"],
+      "@context/*": ["context/*"],
+      "@helpers/*": ["helpers/*"],
+      "@hooks/*": ["hooks/*"],
+      "@routes": ["routes/index"],
+      "@routes/*": ["routes/*"],
+      "@store/*": ["redux/modules/*"],
+      "@styles/*": ["styles/*"]
+    }
+  },
+  "include": ["client", "server"]
+}
