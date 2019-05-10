@@ -8,8 +8,10 @@
     "moduleResolution": "node",
     "module": "esNext",
     "noEmit": true,
+    "skipLibCheck": true,
     "strict": true,
     "paths": {
+      "@assets/*": ["assets/*"],
       "@components/*": ["components/*"],
       "@config": ["../config/index"],
       "@constants": ["../constants/index"],
@@ -20,7 +22,8 @@
       "@routes": ["routes/index"],
       "@routes/*": ["routes/*"],
       "@store/*": ["redux/modules/*"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "test-utils": ["../test/test-utils"]
     }
   },
   "include": ["client", "server"]

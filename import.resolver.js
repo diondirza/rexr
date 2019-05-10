@@ -6,6 +6,7 @@ module.exports = {
     modules: [path.resolve(appRootDir.get(), './node_modules')],
     alias: {
       '@': path.resolve(appRootDir.get(), './'),
+      '@assets': path.resolve(appRootDir.get(), './client/assets/'),
       '@components': path.resolve(appRootDir.get(), './client/components/'),
       '@config': path.resolve(appRootDir.get(), './config/index.js'),
       '@constants': path.resolve(appRootDir.get(), './constants/index.js'),
