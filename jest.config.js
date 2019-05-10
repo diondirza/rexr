@@ -12,7 +12,10 @@ module.exports = {
   },
   moduleDirectories: ['node_modules', 'test'],
   moduleNameMapper: {
+    '\\.svg': '<rootDir>/test/svgr-mock.js',
+    '\\.(jpe?g|png|gif|webp)$': '<rootDir>/test/assets-transformer.js',
     '^@/': '<rootDir>/client$1',
+    '^@assets(.*)$': '<rootDir>/client/assets$1',
     '^@components(.*)$': '<rootDir>/client/components$1',
     '^@config$': '<rootDir>/config/index',
     '^@constants$': '<rootDir>/constants/index',
@@ -25,11 +28,10 @@ module.exports = {
   },
   setupFilesAfterEnv: ['jest-dom/extend-expect', '<rootDir>/test/setup.js', 'react-testing-library/cleanup-after-each'],
   testEnvironment: 'jest-environment-jsdom',
-  testURL: 'http://localhost',
+  testPathIgnorePatterns: ['/node_modules/', '/config/', '/constants/'],
+  testURL: 'http://localhost:3001',
   transform: {
     '^.+\\.(j|t)sx?$': 'babel-jest',
-    //   '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-    //     '<rootDir>/test/assetsTransformer.js',
   },
-  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.((j|t)sx?|mjs)$'],
+  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.((j|t)sx?)$'],
 };

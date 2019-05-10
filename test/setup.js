@@ -1,4 +1,4 @@
-import serializer, { matchers } from 'jest-emotion';
+import { matchers } from 'jest-emotion';
 import { configure } from 'react-testing-library';
 
 import config from '@config';
@@ -19,10 +19,5 @@ global.__SERVER__ = false;
 global.__DEVTOOLS__ = false;
 global.__SERVER__ = isVerbose;
 global.__GITREV__ = gitRevision;
-// ====
 
-// Helper functions
-// global.setupComponent = setupComponentHelper;
-
-expect.addSnapshotSerializer(serializer);
 expect.extend(matchers);
