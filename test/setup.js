@@ -1,5 +1,5 @@
 import { matchers } from 'jest-emotion';
-import { configure } from 'react-testing-library';
+import { configure } from '@testing-library/react';
 
 import config from '@config';
 import constants from '@constants';

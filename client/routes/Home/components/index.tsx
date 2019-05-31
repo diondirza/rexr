@@ -1,15 +1,15 @@
-import React, { SFC, useContext, useCallback } from 'react';
+import React, { SFC, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 
-import { GlobalContext } from '@context/global';
+import useGlobal from '@hooks/use-global';
 import { Button } from '../styles';
 
 const HomeView: SFC = () => {
-  const [globalState, globalDispatch] = useContext(GlobalContext);
-  const { count } = globalState;
-  const incrementCounter = useCallback(() => {
-    globalDispatch({ type: 'INCREMENT_COUNTER' });
-  }, [globalDispatch]);
+  const { state, incrementCounter } = useGlobal();
+  const { count } = state;
+  const handleClick = useCallback(() => {
+    incrementCounter();
+  }, [incrementCounter]);
 
   return (
     <>
@@ -20,9 +20,9 @@ const HomeView: SFC = () => {
       <div>
         Hello world!
         <br />
-        Current counter value: {count}
+        Current counter value: <span data-tid="counter">{count}</span>
         <br />
-        <Button type="button" onClick={incrementCounter}>
+        <Button data-tid="increment" type="button" onClick={handleClick}>
           Click me to increase counter by 1
         </Button>
       </div>
