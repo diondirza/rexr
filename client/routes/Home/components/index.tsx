@@ -1,10 +1,10 @@
-import React, { SFC, useCallback } from 'react';
+import React, { FC, useCallback } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import useGlobal from '@hooks/use-global';
 import { Button } from '../styles';
 
-const HomeView: SFC = () => {
+const HomeView: FC = () => {
   const { state, incrementCounter } = useGlobal();
   const { count } = state;
   const handleClick = useCallback(() => {

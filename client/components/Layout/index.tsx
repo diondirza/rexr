@@ -1,4 +1,4 @@
-import React, { ReactNode, SFC } from 'react';
+import React, { ReactNode, FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import { container } from './styles';
@@ -7,7 +7,7 @@ type LayoutProps = {
   children: ReactNode;
 };
 
-const Layout: SFC<LayoutProps> = props => {
+const Layout: FC<LayoutProps> = props => {
   const { children } = props;
 
   return (

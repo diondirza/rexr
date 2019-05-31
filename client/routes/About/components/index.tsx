@@ -1,9 +1,9 @@
-import React, { SFC } from 'react';
+import React, { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { Container } from '../styles';
 
-const AboutView: SFC = () => {
+const AboutView: FC = () => {
   return (
     <>
       <Helmet>

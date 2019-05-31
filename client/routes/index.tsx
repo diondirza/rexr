@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React, { FC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Layout from '@components/Layout';
@@ -8,7 +8,7 @@ import HomeComponent from '@routes/Home';
 import AboutComponent from '@routes/About';
 // #endregion
 
-const Routes: SFC = () => (
+const Routes: FC = () => (
   <Layout>
     <Switch>
       <Route path="/about" component={AboutComponent} />
@@ -17,6 +17,6 @@ const Routes: SFC = () => (
   </Layout>
 );
 
-const RootRoutes: SFC = () => <Route component={Routes} />;
+const RootRoutes: FC = () => <Route component={Routes} />;
 
 export default RootRoutes;

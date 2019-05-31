@@ -1,4 +1,4 @@
-import React, { SFC } from 'react';
+import React, { FC } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { HelmetProvider } from 'react-helmet-async';
 import { Router } from 'react-router-dom';
@@ -15,7 +15,7 @@ type AppProps = {
   history: History;
 };
 
-const App: SFC<AppProps> = ({ gqlClient, history }) => {
+const App: FC<AppProps> = ({ gqlClient, history }) => {
   return (
     <HelmetProvider>
       <GlobalProvider>

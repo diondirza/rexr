@@ -1,4 +1,4 @@
-import React, { ReactNode, SFC, useReducer, useMemo } from 'react';
+import React, { ReactNode, FC, useReducer, useMemo } from 'react';
 
 import { GlobalState, GlobalStore } from './types';
 import reducer from './reducer';
@@ -23,7 +23,7 @@ type GlobalProviderProps = {
   initialState?: GlobalState;
 };
 
-const GlobalProvider: SFC<GlobalProviderProps> = ({ children, initialState }) => {
+const GlobalProvider: FC<GlobalProviderProps> = ({ children, initialState }) => {
   const initState = initialState || getInitialState();
   const [state, dispatch] = useReducer(reducer, initState);
   const store = useMemo(() => [state, dispatch], [state, dispatch]) as GlobalStore;
