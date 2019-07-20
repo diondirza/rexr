@@ -27,7 +27,7 @@ module.exports = {
     '^@styles(.*)$': '<rootDir>/client/styles$1',
   },
   setupFilesAfterEnv: [
-    'jest-dom/extend-expect',
+    '@testing-library/jest-dom/extend-expect',
     '<rootDir>/test/setup.js',
     '@testing-library/react/cleanup-after-each',
   ],
