@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
-import { GlobalContext } from '@context';
 import { UPDATE_LANGUAGE, INCREMENT_COUNTER, GlobalState, GlobalStore } from '@context/global/types';
+import { GlobalContext } from '@context';
 
 type GlobalHook = {
   state: GlobalState;
