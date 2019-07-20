@@ -147,6 +147,7 @@ const webpackConfig = {
                   babelrc: false,
                   cacheDirectory: true,
                   cacheCompression: isProd,
+                  compact: isProd,
                   presets: [
                     ['@babel/preset-env', { modules: false, useBuiltIns: 'entry', corejs: 3 }],
                     '@babel/preset-typescript',
@@ -170,7 +171,7 @@ const webpackConfig = {
                     '@babel/plugin-syntax-async-generators',
                     '@babel/plugin-syntax-dynamic-import',
                     ['@babel/plugin-transform-destructuring', { useBuiltIns: true }],
-                    ['@babel/plugin-transform-runtime', { corejs: 3, helpers: false }],
+                    ['@babel/plugin-transform-runtime', { useESModules: true }],
                     'react-loadable/babel',
                     'lodash',
                     // 'graphql-tag',
@@ -180,6 +181,10 @@ const webpackConfig = {
                 },
               },
             ],
+          },
+          {
+            test: /\.mjs$/,
+            type: 'javascript/auto',
           },
           {
             test: /\.(graphql|gql)$/,
@@ -295,6 +300,7 @@ const webpackConfig = {
     dgram: 'empty',
     dns: 'mock',
     fs: 'empty',
+    http2: 'empty',
     net: 'empty',
     tls: 'empty',
     child_process: 'empty',

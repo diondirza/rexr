@@ -6,7 +6,7 @@ const config = require('../config');
 const constants = require('../constants');
 const { gitRevision } = require('../utils');
 const { normalizeCSS, criticalCSS } = require('../utils/html/critical-css');
-const preconnectTags = require('../utils/html/preconnectTags').default;
+const preconnectTags = require('../utils/html/preconnect-tags').default;
 
 const webpackClientConfig = require('./webpack.config.babel').default;
 
