@@ -31,7 +31,7 @@ module.exports = {
     '<rootDir>/test/setup.js',
     '@testing-library/react/cleanup-after-each',
   ],
-  testEnvironment: 'jest-environment-jsdom',
+  testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/', '/config/', '/constants/'],
   testURL: 'http://localhost:3001',
   transform: {
