@@ -1,9 +1,7 @@
 {
-  "linters": {
-    "*.{ts,tsx,js}": [
-      "pretty-quick --staged",
-      "eslint --fix",
-      "git add"
-    ]
-  }
+  "*.{ts,tsx,js}": [
+    "pretty-quick --staged",
+    "eslint --fix",
+    "git add"
+  ]
 }
