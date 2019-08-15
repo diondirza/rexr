@@ -18,7 +18,7 @@ async function build() {
     throw new Error('Define DIR env.');
   }
 
-  const config = require(`../${dir}/webpack.config.babel`).default;
+  const config = require(`../config/webpack/${dir}.babel`).default;
 
   return new Promise((resolve, reject) => {
     webpack(config).run((err, stats) => {

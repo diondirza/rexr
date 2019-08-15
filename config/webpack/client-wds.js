@@ -2,13 +2,13 @@ require('@babel/register');
 const appRootDir = require('app-root-dir');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const config = require('../config');
-const constants = require('../constants');
-const { gitRevision } = require('../utils');
-const { normalizeCSS, criticalCSS } = require('../utils/html/critical-css');
-const preconnectTags = require('../utils/html/preconnect-tags').default;
+const config = require('..');
+const constants = require('../../constants');
+const { gitRevision } = require('../../utils');
+const { normalizeCSS, criticalCSS } = require('../../utils/html/critical-css');
+const preconnectTags = require('../../utils/html/preconnect-tags').default;
 
-const webpackClientConfig = require('./webpack.config.babel').default;
+const webpackClientConfig = require('./client.babel').default;
 
 const baseShellPath = path.resolve(appRootDir.get(), 'static', 'base-shell.ejs');
 const gtmId = constants.GTM_CONTAINER_ID;

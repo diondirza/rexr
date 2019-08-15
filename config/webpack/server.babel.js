@@ -8,11 +8,11 @@ import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
 import WebpackBar from 'webpackbar';
 import nodeExternals from 'webpack-node-externals';
 
-import config from '../config';
-import constants from '../constants';
-import { gitRevision, isCircleCI, isDev, isProd, ifDev, ifProd } from '../utils';
+import config from '../index';
+import constants from '../../constants';
+import { gitRevision, isCircleCI, isDev, isProd, ifDev, ifProd } from '../../utils';
 
-import { resolve as importResolver } from '../import.resolver';
+import { resolve as importResolver } from '../../import.resolver';
 
 const log = debug(`build:bumblebee`);
 const publicPath = constants.publicPath || config.get('PUBLIC_PATH');

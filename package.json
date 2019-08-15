@@ -60,14 +60,14 @@
       }
     },
     "dev:client": {
-      "command": "webpack-dev-server --config ./client/wds.config.js",
+      "command": "webpack-dev-server --config ./config/webpack/client-wds.js",
       "env": {
         "DEBUG": "rexr*,build*",
         "NODE_ENV": "development"
       }
     },
     "dev:server": {
-      "command": "webpack --config ./server/webpack.config.babel.js",
+      "command": "webpack --config ./config/webpack/server.babel.js",
       "env": {
         "DEBUG": "rexr*,build*,middleware:*,redis*",
         "NODE_ENV": "development"

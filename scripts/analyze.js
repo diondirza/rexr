@@ -5,7 +5,7 @@ import path from 'path';
 import webpack from 'webpack';
 
 const dir = process.env.DIR;
-const paths = path.resolve(appRootDir.get(), `./${dir}/webpack.config.babel.js`);
+const paths = path.resolve(appRootDir.get(), `./config/webpack/${dir}.babel.js`);
 const webpackConfig = require(paths).default;
 
 webpack(webpackConfig).run((err, stats) => {

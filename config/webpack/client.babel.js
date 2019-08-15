@@ -10,10 +10,10 @@ import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
 import { ReactLoadablePlugin } from 'react-loadable/webpack';
 import webpack from 'webpack';
 
-import config from '../config';
-import constants from '../constants';
-import { gitRevision, isDev, isProd, isVerbose, ifDev, ifProd } from '../utils';
-import { resolve as importResolver } from '../import.resolver';
+import config from '../index';
+import constants from '../../constants';
+import { gitRevision, isDev, isProd, isVerbose, ifDev, ifProd } from '../../utils';
+import { resolve as importResolver } from '../../import.resolver';
 
 const publicPath = constants.publicPath || config.get('PUBLIC_PATH');
 const log = debug('build:rexr');
