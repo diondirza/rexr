@@ -1,6 +1,6 @@
 const debug = require('debug')('bumblebee:render');
 
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { renderToNodeStream } from 'react-dom/server';
 import { StaticRouterContext } from 'react-router';
 import { StaticRouter } from 'react-router-dom';
@@ -14,7 +14,6 @@ import { getInitialState as getGqlCacheState } from 'graphql-hooks-ssr';
 // import { isSupported } from 'caniuse-api';
 
 import { GlobalProvider } from '@context';
-import Routes from '@routes';
 import ErrorBoundary from '@components/ErrorBoundary';
 import htmlTemplate, { HTMLState } from './html-template';
 import getBundles from './get-bundles';
@@ -65,6 +64,8 @@ const renderer: Plugin<Server, IncomingMessage, ServerResponse, RendererOptions>
     if (!opts.ssr) {
       debug('SSR are disabled, hydrating on client.');
       hydrateOnClient();
+
+      return;
     }
 
     // PassThrough is a dummy Transform stream, simply for converting our response
@@ -73,13 +74,14 @@ const renderer: Plugin<Server, IncomingMessage, ServerResponse, RendererOptions>
     const transformStream = new HTMLTransform({ cacheKey: httpRequest.url, redis: (fastify as any).redis });
     const helmetContext = {} as FilledContext;
     const routerContext: StaticRouterContext = {};
-
+    const initialGlobalState = getInitialState();
     const modules: string[] = [];
+    const Routes = require('@routes');
+
     const report = (moduleName: string) => {
       modules.push(moduleName);
     };
 
-    const initialGlobalState = getInitialState();
     const gqlClient = new GraphQLClient({
       url: '/graphql',
       fetch,
@@ -87,7 +89,7 @@ const renderer: Plugin<Server, IncomingMessage, ServerResponse, RendererOptions>
       cache: memCache(),
     });
 
-    const App: any = (
+    const App: ReactElement = (
       <Loadable.Capture report={report}>
         <HelmetProvider context={helmetContext}>
           <GlobalProvider initialState={initialGlobalState}>
