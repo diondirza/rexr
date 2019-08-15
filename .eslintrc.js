@@ -5,7 +5,6 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   extends: ['airbnb-typescript', 'prettier', 'prettier/@typescript-eslint', 'prettier/react'],
   parserOptions: {
-    project: './tsconfig.json',
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
