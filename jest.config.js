@@ -26,11 +26,7 @@ module.exports = {
     '^@routes(.*)$': '<rootDir>/client/routes$1',
     '^@styles(.*)$': '<rootDir>/client/styles$1',
   },
-  setupFilesAfterEnv: [
-    '@testing-library/jest-dom/extend-expect',
-    '<rootDir>/test/setup.js',
-    '@testing-library/react/cleanup-after-each',
-  ],
+  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect', '<rootDir>/test/setup.js'],
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['/node_modules/', '/config/', '/constants/'],
   testURL: 'http://localhost:3001',
