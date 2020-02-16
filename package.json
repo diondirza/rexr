@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "engines": {
-    "node": ">=10.14.1",
-    "npm": ">=6.4.0",
-    "yarn": ">=1.15.0"
+    "node": ">=12.16.0",
+    "npm": ">=6.13.7",
+    "yarn": ">=1.22.0"
   },
   "scripts": {
     "analyze:client": "bnr analyze:client",

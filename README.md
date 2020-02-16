@@ -7,8 +7,8 @@ dotENV support for environment configuration.
 
 ## Requirements
 
-- node `^10.14.1`
-- yarn `^1.12.3`
+- node `^12.16.0`
+- yarn `^1.22.0`
 
 1. **Install Node.js**: Our app is powered by [Node.js](https://nodejs.org/en/), duh.
 2. **Install Yarn**: We use [yarn](https://yarnpkg.com) to handle our JavaScript dependencies. See [the yarn documentation](https://yarnpkg.com/en/docs/install) for instructions on installing it.
