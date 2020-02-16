@@ -1,14 +1,16 @@
 const appRootDir = require('app-root-dir');
 const path = require('path');
+const webpackResolver = require('./import.resolver');
 
 module.exports = {
-  parser: '@typescript-eslint/parser',
   extends: ['airbnb-typescript', 'prettier', 'prettier/@typescript-eslint', 'prettier/react'],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
     },
+    project: './tsconfig.json',
+    sourceType: 'module',
   },
   plugins: ['import', 'prettier', 'react', 'react-hooks', 'jest'],
   env: {
@@ -23,7 +25,7 @@ module.exports = {
     'import/resolver': {
       typescript: {},
       webpack: {
-        config: path.resolve(appRootDir.get(), './import.resolver.js'),
+        config: webpackResolver,
       },
     },
   },
@@ -53,7 +55,6 @@ module.exports = {
     'no-console': 'off',
     'no-underscore-dangle': 'off',
     'no-unused-vars': ['error', { vars: 'all', args: 'after-used', argsIgnorePattern: '^_', ignoreRestSiblings: true }],
-    'no-unused-expressions': ['error', { allowTaggedTemplates: true, allowShortCircuit: true }],
     'no-use-before-define': 'off',
     'padding-line-between-statements': [
       'error',
@@ -82,6 +83,7 @@ module.exports = {
     'react/no-danger': 'off',
     'react/prop-types': 'off',
     'react/jsx-filename-extension': 'off',
+    'react/jsx-props-no-spreading': 'off',
     'react/sort-prop-types': [
       'warn',
       {
@@ -91,6 +93,8 @@ module.exports = {
         sortShapeProp: true,
       },
     ],
+    'react/state-in-constructor': 'off',
+    'react/static-property-placement': ['error', 'static public field'],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
   },
@@ -98,7 +102,6 @@ module.exports = {
     constants: true,
     expect: true,
     globalThis: true,
-    publicPath: true,
     render: true,
     __CLIENT__: true,
     __DEV__: true,
