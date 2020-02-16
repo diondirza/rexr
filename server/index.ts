@@ -9,7 +9,6 @@ import compress from 'fastify-compress';
 import cors from 'fastify-cors';
 import helmet from 'fastify-helmet';
 import redis from 'fastify-redis';
-import brotli from 'iltorb';
 import path from 'path';
 import Loadable from 'react-loadable';
 
@@ -34,7 +33,7 @@ if (__PROD__) {
 
 app.register(cors, corsOptions);
 
-app.register(compress, { brotli });
+app.register(compress);
 
 if (__DEV__) {
   app.register(require('fastify-static'), {
@@ -52,9 +51,14 @@ const startServer = async () => {
     await Loadable.preloadAll();
 
     if (__PROD__) {
-      const address = await app.listen(PORT, HOST);
+      const address: string = await new Promise((resolve, reject) => {
+        app.listen(PORT, HOST, (err, addr) => {
+          if (!err) resolve(addr);
+          else reject(err);
+        });
+      });
 
-      app.log.info(`bumblebee the server-side renderer, listening at ${address}`);
+      debug(`bumblebee the server-side renderer, listening at ${address}`);
     }
   } catch (err) {
     app.log.error(err);
