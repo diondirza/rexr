@@ -3,13 +3,15 @@ import React, { ErrorInfo, PureComponent, ReactNode } from 'react';
 import { canUseDOM } from '@helpers/env';
 import ErrorView from '@components/ErrorView';
 
-type ErrorBoundaryProps = typeof ErrorBoundary.defaultProps & {
+interface ErrorBoundaryProps {
   children: ReactNode;
-};
+  debug?: boolean;
+  fallback?: React.FC;
+}
 
-type ErrorBoundarySate = {
+interface ErrorBoundarySate {
   hasError: boolean;
-};
+}
 
 class ErrorBoundary extends PureComponent<ErrorBoundaryProps, ErrorBoundarySate> {
   static defaultProps = {
@@ -43,7 +45,7 @@ class ErrorBoundary extends PureComponent<ErrorBoundaryProps, ErrorBoundarySate>
     const { children, fallback: FallbackComponent } = this.props;
     const { hasError } = this.state;
 
-    return hasError ? <FallbackComponent /> : children;
+    return hasError && FallbackComponent ? <FallbackComponent /> : children;
   }
 }
 

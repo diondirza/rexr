@@ -5,7 +5,7 @@ type LoadingProps = {
 };
 
 const Loading: FC<LoadingProps> = ({ error }) => {
-  if (error) throw error;
+  if (error) throw new Error(error);
 
   return <div>Loading ...</div>;
 };
