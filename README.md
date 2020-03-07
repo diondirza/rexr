@@ -7,7 +7,7 @@ dotENV support for environment configuration.
 
 ## Requirements
 
-- node `^12.16.0`
+- node `^12.16.1`
 - yarn `^1.22.0`
 
 1. **Install Node.js**: Our app is powered by [Node.js](https://nodejs.org/en/), duh.
