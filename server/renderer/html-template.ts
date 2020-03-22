@@ -45,7 +45,7 @@ export default function template({
     ${ifProd(preconnectTags, '')}
     <link rel="manifest" href="/manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Tokopedia">
+    <meta name="apple-mobile-web-app-title" content="RexR">
     <meta name="theme-color" content="#42b549">
     <style type="text/css">${normalizeCSS}</style>
     <style type="text/css">${criticalCSS}</style>
