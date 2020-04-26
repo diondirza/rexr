@@ -1,3 +1,11 @@
+# dependencies folder
+**/node_modules/*
+
+# library specific folder
+coverage/*
+lib/*
+test/*
+
 # output folder
 **/build/*
 **/dist/*
@@ -5,16 +13,12 @@
 # project folder
 static/*
 
-# library specific folder
-coverage/*
-flow-typed/*
-lib/*
-
-# dependencies folder
-**/node_modules/*
+# project config
+*.config.js
 
 # typescript definition files
 **/*.d.ts
 
-# entry of sw
+# service worker
 base-sw.js
+††
