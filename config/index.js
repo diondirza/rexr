@@ -11,7 +11,7 @@ if (envConfig.error) {
   throw new Error(envConfig.error);
 }
 
-const transform = value => {
+const transform = (value) => {
   let parsedValue;
 
   try {
@@ -34,7 +34,7 @@ const transformed = Object.keys(envConfig.parsed).reduce((acc, key) => {
 }, {});
 
 const config = {
-  get: path => {
+  get: (path) => {
     if (typeof transformed[path] === 'undefined') {
       throw new Error(`'${path}' variable not defined in ENV`);
     }

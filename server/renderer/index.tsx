@@ -55,10 +55,7 @@ const renderer: Plugin<Server, IncomingMessage, ServerResponse, RendererOptions>
       };
       const [header, footer] = htmlTemplate(htmlStates);
 
-      reply
-        .code(status)
-        .type('text/html; charset=utf-8')
-        .send(`${header}${footer}`);
+      reply.code(status).type('text/html; charset=utf-8').send(`${header}${footer}`);
     };
 
     if (!opts.ssr) {
@@ -137,10 +134,7 @@ const renderer: Plugin<Server, IncomingMessage, ServerResponse, RendererOptions>
       }
 
       transformStream.write('<!DOCTYPE html>');
-      bodyStream.pipe(
-        transformStream,
-        { end: false },
-      );
+      bodyStream.pipe(transformStream, { end: false });
       bodyStream.on('end', () => {
         htmlStates = {
           ...htmlStates,
@@ -153,11 +147,7 @@ const renderer: Plugin<Server, IncomingMessage, ServerResponse, RendererOptions>
         transformStream.end(footer);
       });
 
-      reply
-        .code(200)
-        .type('text/html; charset=utf-8')
-        .header('Cache-Control', 'no-cache')
-        .send(transformStream);
+      reply.code(200).type('text/html; charset=utf-8').header('Cache-Control', 'no-cache').send(transformStream);
 
       return;
     } catch (e) {

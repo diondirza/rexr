@@ -12,6 +12,7 @@ test/*
 
 # project folder
 static/*
+scripts/*
 
 # project config
 *.config.js

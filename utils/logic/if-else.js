@@ -1,4 +1,4 @@
-const execIfFunc = x => (typeof x === 'function' ? x() : x);
+const execIfFunc = (x) => (typeof x === 'function' ? x() : x);
 
 /**
  * This is a higher order function that accepts a boolean condition and will
@@ -16,6 +16,6 @@ const execIfFunc = x => (typeof x === 'function' ? x() : x);
  *   const ifDev = ifElse(process.env.NODE_ENV === 'development');
  *   ifDev('foo', () => 'lazy resolved');  // => 'foo'
  */
-const ifElse = condition => (then, or) => (execIfFunc(condition) ? execIfFunc(then) : execIfFunc(or));
+const ifElse = (condition) => (then, or) => (execIfFunc(condition) ? execIfFunc(then) : execIfFunc(or));
 
 export default ifElse;

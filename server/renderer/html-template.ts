@@ -26,9 +26,9 @@ export default function template({
   initialGlobalState,
   initialCacheState,
 }: HTMLState): [string, string] {
-  const bundleScripts = bundles.filter(src => /[.]js$/i.test(src)) || [];
-  const bundleStyles = bundles.filter(src => /[.]css$/i.test(src)) || [];
-  const preloadedBundleScripts = bundleScripts.map(src => createPreloadTag({ as: 'script', href: src })).join('\n\t');
+  const bundleScripts = bundles.filter((src) => /[.]js$/i.test(src)) || [];
+  const bundleStyles = bundles.filter((src) => /[.]css$/i.test(src)) || [];
+  const preloadedBundleScripts = bundleScripts.map((src) => createPreloadTag({ as: 'script', href: src })).join('\n\t');
   const gtmContainerId = GTM_CONTAINER_ID;
   const gtmTrackingScript = `
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${gtmContainerId}" height="0" width="0" style="display: none; visibility: hidden;"></iframe></noscript>
@@ -64,9 +64,9 @@ export default function template({
       window.NODE_ENV="${config.get('ENV')}";
       window.version="${__GITREV__}";
     </script>
-    ${ifProd(bundleStyles.map(src => createLinkTag({ src })).join('\n\t'), '')}
+    ${ifProd(bundleStyles.map((src) => createLinkTag({ src })).join('\n\t'), '')}
     ${createScriptTag({ src: assets['vendor~client'].js })}
-    ${bundleScripts.map(src => createScriptTag({ src })).join('\n\t')}
+    ${bundleScripts.map((src) => createScriptTag({ src })).join('\n\t')}
     ${createScriptTag({ src: assets.client.js })}
     ${helmet && helmet.script.toString()}
     ${ifProd(gtmTrackingScript, '')}

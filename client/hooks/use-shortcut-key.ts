@@ -14,7 +14,7 @@ export default function useShortcutKey({ keyMap = [], exit = 'escape' }: Shortcu
       setInputKey((prevKeys: string[]) => (prevKeys.indexOf(key) === -1 ? [...prevKeys, key.toLowerCase()] : prevKeys));
     };
     const handleKeyUp = ({ key }: KeyboardEvent) => {
-      setInputKey((prevKeys: string[]) => prevKeys.filter(k => k !== key.toLowerCase()));
+      setInputKey((prevKeys: string[]) => prevKeys.filter((k) => k !== key.toLowerCase()));
     };
 
     document.addEventListener('keydown', handleKeyDown);
@@ -27,7 +27,7 @@ export default function useShortcutKey({ keyMap = [], exit = 'escape' }: Shortcu
   }, [setInputKey]);
 
   useEffect(() => {
-    if (inputKeys.length === keyMap.length && keyMap.every(k => inputKeys.includes(k))) {
+    if (inputKeys.length === keyMap.length && keyMap.every((k) => inputKeys.includes(k))) {
       setMatch(true);
     }
 

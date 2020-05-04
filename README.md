@@ -47,7 +47,6 @@ NOTE: Be sure to pull latest update from "upstream" to develop branch and rebase
 
 - If need to support SSR then after you have done development please run `yarn dev:server` to check if SSR working properly. Server will be using port `3000` by default and can be customized by change this `PORT` value.
 
-
 ## Deployment
 
 Use command `yarn build` to build all the assets that will be needed for our apps to running in production environment.
@@ -56,18 +55,18 @@ For now in production we will run our SSR server but turn off its SSR capability
 
 ## Scripts
 
-| `yarn <script>`         | Description                                                    |
-| ----------------------- | -------------------------------------------------------------- |
-| `analyze:client`        | To analyze bundle of client                                    |
-| `analyze:server`        | To analyze bundle of server                                    |
-| `build:client`          | To build the frontend and web UI                               |
-| `build:server`          | To build the server-side rendering                             |
-| `dev`                   | Shortcut to use command `dev:client`                           |
-| `dev:client`            | To develop the frontend and web UI using client-side rendering |
-| `dev:server`            | To boot up the server-side rendering (require client to be up) |
-| `setup`                 | To setup project for the first time                            |
-| `test`                  | To test all client application code                            |
-| `test:components`       | To test all client component unit test                         |
-| `test:types`            | To check all typescript type is passed                         |
+| `yarn <script>`   | Description                                                    |
+| ----------------- | -------------------------------------------------------------- |
+| `analyze:client`  | To analyze bundle of client                                    |
+| `analyze:server`  | To analyze bundle of server                                    |
+| `build:client`    | To build the frontend and web UI                               |
+| `build:server`    | To build the server-side rendering                             |
+| `dev`             | Shortcut to use command `dev:client`                           |
+| `dev:client`      | To develop the frontend and web UI using client-side rendering |
+| `dev:server`      | To boot up the server-side rendering (require client to be up) |
+| `setup`           | To setup project for the first time                            |
+| `test`            | To test all client application code                            |
+| `test:components` | To test all client component unit test                         |
+| `test:types`      | To check all typescript type is passed                         |
 
-------
+---

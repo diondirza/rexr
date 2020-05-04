@@ -25,7 +25,7 @@ if (require.main === module && process.argv.length > 2) {
     .then(() => {
       process.exit();
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err.stack);
       process.exitCode = 1;
     });
