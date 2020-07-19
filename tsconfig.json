@@ -5,7 +5,7 @@
     "baseUrl": ".",
     "esModuleInterop": true,
     "jsx": "react",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "module": "ESNext",
     "noEmit": true,
     "skipLibCheck": true,
@@ -22,10 +22,9 @@
       "@hooks/*": ["client/hooks/*"],
       "@routes": ["client/routes/index"],
       "@routes/*": ["client/routes/*"],
-      "@store/*": ["client/redux/modules/*"],
       "@styles/*": ["client/styles/*"],
       "test-utils": ["test/test-utils"]
     }
   },
-  "include": ["client", "server"]
+  "include": ["client", "config", "server"]
 }

@@ -16,10 +16,10 @@ scripts/*
 
 # project config
 *.config.js
+.eslintrc.js
 
 # typescript definition files
 **/*.d.ts
 
 # service worker
 base-sw.js
-††

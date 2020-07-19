@@ -286,13 +286,15 @@ const webpackConfig = {
     /**
      * Copy static assets
      */
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(appRootDir.get(), 'static'),
-        to: path.resolve(appRootDir.get(), buildPath, '../static'),
-        flatten: true,
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(appRootDir.get(), 'static'),
+          to: path.resolve(appRootDir.get(), buildPath, '../static'),
+          flatten: true,
+        },
+      ],
+    }),
   ].filter(Boolean),
 
   node: {

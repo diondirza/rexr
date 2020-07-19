@@ -10,23 +10,47 @@ const preconnectTags = require('../../utils/html/preconnect-tags').default;
 
 const webpackClientConfig = require('./client.babel').default;
 
-const baseShellPath = path.resolve(appRootDir.get(), 'static', 'base-shell.ejs');
 const gtmId = constants.GTM_CONTAINER_ID;
 const host = config.get('HOST');
 const port = config.get('CLIENT.PORT');
 
+webpackClientConfig.module.rules[2].oneOf = [
+  {
+    test: /\.ejs$/,
+    loader: 'ejs-loader',
+    options: {
+      esModule: false,
+    },
+  },
+  ...webpackClientConfig.module.rules[2].oneOf,
+];
+
 webpackClientConfig.plugins = [
   ...webpackClientConfig.plugins,
   new HtmlWebpackPlugin({
-    template: `!!ejs-loader!${baseShellPath}`,
+    template: path.resolve(appRootDir.get(), './static/base-shell.ejs'),
     chunksSortMode: 'none',
-    gtmId,
-    gitRev: gitRevision,
-    preconnects: preconnectTags,
-    normalizeCSS,
-    criticalCSS,
-    initialState: {},
-    NODE_ENV: process.env.NODE_ENV,
+    meta: {
+      viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
+      'theme-color': '#009ca6',
+    },
+    scriptLoading: 'defer',
+    templateParameters: (compilation, assets, assetTags, options) => ({
+      compilation,
+      constants: JSON.stringify(constants),
+      criticalCSS,
+      gitRev: gitRevision,
+      gtmId,
+      htmlWebpackPlugin: {
+        files: assets,
+        options,
+        tags: assetTags,
+      },
+      initialState: {},
+      normalizeCSS,
+      preconnects: preconnectTags,
+      webpackConfig: compilation.options,
+    }),
   }),
 ];
 

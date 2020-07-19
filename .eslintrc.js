@@ -3,9 +3,17 @@ const path = require('path');
 const webpackResolver = require('./import.resolver');
 
 module.exports = {
-  extends: ['airbnb-typescript', 'prettier', 'prettier/@typescript-eslint', 'prettier/react'],
+  extends: [
+    'airbnb-typescript',
+    'plugin:jest-dom/recommended',
+    'plugin:testing-library/react',
+    'prettier',
+    'prettier/@typescript-eslint',
+    'prettier/react',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
+    ecmaVersion: 2020,
     ecmaFeatures: {
       jsx: true,
     },
@@ -53,6 +61,22 @@ module.exports = {
       },
     ],
     'no-console': 'off',
+    'no-restricted-syntax': [
+      'error',
+      {
+        selector: 'ForInStatement',
+        message:
+          'for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array.',
+      },
+      {
+        selector: 'LabeledStatement',
+        message: 'Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand.',
+      },
+      {
+        selector: 'WithStatement',
+        message: '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
+      },
+    ],
     'no-underscore-dangle': 'off',
     'no-unused-vars': ['error', { vars: 'all', args: 'after-used', argsIgnorePattern: '^_', ignoreRestSiblings: true }],
     'no-use-before-define': 'off',
@@ -63,6 +87,7 @@ module.exports = {
       { blankLine: 'always', prev: '*', next: ['if', 'return'] },
     ],
     'prettier/prettier': 'error',
+    'import/no-cycle': 'off',
     'import/no-dynamic-require': 'off',
     'import/no-extraneous-dependencies': [
       'error',
@@ -71,6 +96,7 @@ module.exports = {
           '**/*.config*.{ts,tsx,js}',
           '**/*.test.{ts,tsx,js}',
           'config/**/*.{ts,tsx,js}',
+          'e2e/**/*.{ts,tsx,js}',
           'scripts/**/*.{ts,tsx,js}',
           'test/**/*.{ts,tsx,js}',
           'utils/**/*.{ts,tsx,js}',
@@ -84,6 +110,15 @@ module.exports = {
     'react/prop-types': 'off',
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/jsx-sort-props': [
+      'warn',
+      {
+        callbacksLast: true,
+        ignoreCase: true,
+        reservedFirst: true,
+        shorthandFirst: true,
+      },
+    ],
     'react/sort-prop-types': [
       'warn',
       {
@@ -97,6 +132,8 @@ module.exports = {
     'react/static-property-placement': ['error', 'static public field'],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'testing-library/prefer-screen-queries': 'warn',
+    'testing-library/prefer-wait-for': 'error',
   },
   globals: {
     constants: true,
