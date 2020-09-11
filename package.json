@@ -114,7 +114,7 @@
     "isomorphic-cookie": "1.2.4",
     "lodash": "4.17.19",
     "make-promises-safe": "5.1.0",
-    "node-fetch": "2.6.0",
+    "node-fetch": "2.6.1",
     "pino": "6.4.0",
     "pino-pretty": "4.0.3",
     "prop-types": "15.7.2",
