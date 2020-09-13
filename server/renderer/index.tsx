@@ -1,12 +1,14 @@
 const debug = require('debug')('bumblebee:render');
 
+import appRootDir from 'app-root-dir';
 import React, { ReactElement } from 'react';
 import { renderToNodeStream } from 'react-dom/server';
 import { StaticRouterContext } from 'react-router';
 import { StaticRouter } from 'react-router-dom';
 import { HelmetProvider, FilledContext } from 'react-helmet-async';
-import Loadable from 'react-loadable';
+import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
 import fetch from 'node-fetch';
+import path from 'path';
 import { GraphQLClient, ClientContext as GraphQLContext } from 'graphql-hooks';
 import memCache from 'graphql-hooks-memcache';
 import { getInitialState as getGqlCacheState } from 'graphql-hooks-ssr';
@@ -16,7 +18,6 @@ import { getInitialState as getGqlCacheState } from 'graphql-hooks-ssr';
 import { GlobalProvider } from '@context';
 import ErrorBoundary from '@components/ErrorBoundary';
 import htmlTemplate, { HTMLState } from './html-template';
-import getBundles from './get-bundles';
 import HTMLTransform from './html-transform';
 import getInitialState from './get-initial-state';
 import { FastifyInstance, FastifyRequest, FastifyReply, Plugin } from 'fastify';
@@ -31,11 +32,11 @@ const renderer: Plugin<Server, IncomingMessage, ServerResponse, RendererOptions>
   opts: RendererOptions,
   next: Function,
 ) => {
-  let stats: any;
+  let statsFile: any;
   const glb = global as any;
 
   try {
-    stats = require('../../build/client/react-loadable.json');
+    statsFile = path.resolve(appRootDir.get(), './build/client/loadable-stats.json');
   } catch (err) {
     debug('Client bundle not built yet!', err);
     debug('Please build the client bundle and restart the service.');
@@ -72,34 +73,28 @@ const renderer: Plugin<Server, IncomingMessage, ServerResponse, RendererOptions>
     const helmetContext = {} as FilledContext;
     const routerContext: StaticRouterContext = {};
     const initialGlobalState = getInitialState();
-    const modules: string[] = [];
-    const Routes = require('@routes');
-
-    const report = (moduleName: string) => {
-      modules.push(moduleName);
-    };
-
+    const Routes = require('@routes').default;
     const gqlClient = new GraphQLClient({
       url: '/graphql',
       fetch,
       ssrMode: opts.ssr,
       cache: memCache(),
     });
-
+    const extractor = new ChunkExtractor({ statsFile, entrypoints: ['client'] });
     const App: ReactElement = (
-      <Loadable.Capture report={report}>
+      <ChunkExtractorManager extractor={extractor}>
         <HelmetProvider context={helmetContext}>
           <GlobalProvider initialState={initialGlobalState}>
             <GraphQLContext.Provider value={gqlClient}>
               <ErrorBoundary>
-                <StaticRouter location={httpRequest.url} context={routerContext}>
+                <StaticRouter context={routerContext} location={httpRequest.url}>
                   <Routes />
                 </StaticRouter>
               </ErrorBoundary>
             </GraphQLContext.Provider>
           </GlobalProvider>
         </HelmetProvider>
-      </Loadable.Capture>
+      </ChunkExtractorManager>
     );
 
     try {
@@ -117,7 +112,7 @@ const renderer: Plugin<Server, IncomingMessage, ServerResponse, RendererOptions>
       // }
 
       const initialCacheState = await getGqlCacheState({ App, client: gqlClient });
-      const bodyStream = renderToNodeStream(App);
+      const bodyStream = renderToNodeStream(extractor.collectChunks(App));
       let htmlStates: HTMLState = {
         initialGlobalState,
         initialCacheState,
@@ -138,7 +133,7 @@ const renderer: Plugin<Server, IncomingMessage, ServerResponse, RendererOptions>
       bodyStream.on('end', () => {
         htmlStates = {
           ...htmlStates,
-          bundles: getBundles(stats, modules),
+          extractor,
           helmet: helmetContext.helmet,
         };
         const [header, footer] = htmlTemplate(htmlStates);

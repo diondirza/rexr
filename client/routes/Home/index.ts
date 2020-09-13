@@ -1,10 +1,10 @@
-import Loadable from 'react-loadable';
+import loadable from '@loadable/component';
 
 import Loading from '@components/Loading';
 
-const HomeComponent = Loadable({
-  loader: () => import(/* webpackChunkName: "home" */ '@routes/Home/components'),
-  loading: Loading,
+const HomeComponent = loadable(() => import(/* webpackChunkName: "home" */ './components'), {
+  // @ts-ignore
+  fallback: Loading,
 });
 
 export default HomeComponent;

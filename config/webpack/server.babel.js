@@ -163,7 +163,7 @@ const webpackConfig = {
                     helpers: false,
                   },
                 ],
-                'react-loadable/babel',
+                '@loadable/babel-plugin',
                 'lodash',
                 ifDev('console'),
               ],
@@ -222,7 +222,7 @@ const webpackConfig = {
      * on server build
      */
     nodeExternals({
-      whitelist: [
+      allowlist: [
         ...ifDev(['webpack/hot/poll?1000'], []),
         'source-map-support/register',
         /^@lite\/(utils|components)/,
@@ -284,12 +284,14 @@ const webpackConfig = {
       entryOnly: false,
     }),
 
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(appRootDir.get(), '.env.example'),
-        to: path.resolve(appRootDir.get(), 'build'),
-      },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(appRootDir.get(), '.env.example'),
+          to: path.resolve(appRootDir.get(), 'build'),
+        },
+      ],
+    }),
   ],
 
   node: false,

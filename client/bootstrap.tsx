@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, hydrate } from 'react-dom';
-import Loadable from 'react-loadable';
+import { loadableReady } from '@loadable/component';
 import { GraphQLClient } from 'graphql-hooks';
 import memCache from 'graphql-hooks-memcache';
 import { History, createBrowserHistory } from 'history';
@@ -20,7 +20,7 @@ const gqlClient = new GraphQLClient({
   }),
 });
 
-Loadable.preloadReady().then(() => {
+loadableReady(() => {
   const container = document.getElementById('app');
   const bootstrap = w.csr ? render : hydrate;
   const props = {

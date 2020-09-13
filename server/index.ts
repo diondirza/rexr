@@ -10,7 +10,6 @@ import cors from 'fastify-cors';
 import helmet from 'fastify-helmet';
 import redis from 'fastify-redis';
 import path from 'path';
-import Loadable from 'react-loadable';
 
 import handleError from './handle-error';
 import corsOptions from './options/cors';
@@ -48,8 +47,6 @@ app.register(renderer, { ssr: config.get('SSR_STATUS') });
 
 const startServer = async () => {
   try {
-    await Loadable.preloadAll();
-
     if (__PROD__) {
       const address: string = await new Promise((resolve, reject) => {
         app.listen(PORT, HOST, (err, addr) => {

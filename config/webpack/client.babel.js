@@ -7,7 +7,7 @@ import TerserPlugin from 'terser-webpack-plugin';
 import path from 'path';
 import WebpackBar from 'webpackbar';
 import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
-import { ReactLoadablePlugin } from 'react-loadable/webpack';
+import LoadablePlugin from '@loadable/webpack-plugin';
 import webpack from 'webpack';
 
 import config from '../index';
@@ -172,7 +172,7 @@ const webpackConfig = {
                     '@babel/plugin-syntax-dynamic-import',
                     ['@babel/plugin-transform-destructuring', { useBuiltIns: true }],
                     ['@babel/plugin-transform-runtime', { useESModules: true }],
-                    'react-loadable/babel',
+                    '@loadable/babel-plugin',
                     'lodash',
                     // 'graphql-tag',
                     ifDev('react-hot-loader/babel'),
@@ -279,9 +279,7 @@ const webpackConfig = {
       prettyPrint: isDev,
     }),
 
-    new ReactLoadablePlugin({
-      filename: path.resolve(appRootDir.get(), buildPath, 'react-loadable.json'),
-    }),
+    new LoadablePlugin({ writeToDisk: true }),
 
     /**
      * Copy static assets
