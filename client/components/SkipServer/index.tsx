@@ -1,18 +1,23 @@
 import { Component, ReactNode } from 'react';
 
-type SkipServerProps = typeof SkipServer.defaultProps & {
+interface SkipServerProps {
+  enable?: boolean;
   children: ReactNode;
   placeholder?: ReactNode;
-};
+}
 
-type SkipServerState = {
+interface SkipServerState {
   visible: boolean;
-};
+}
 
 class SkipServer extends Component<SkipServerProps, SkipServerState> {
   static defaultProps = {
     enable: false,
   };
+
+  private triggerAnimFrame1: number;
+
+  private triggerAnimFrame2: number;
 
   constructor(props: SkipServerProps) {
     super(props);
@@ -41,10 +46,6 @@ class SkipServer extends Component<SkipServerProps, SkipServerState> {
       }
     }
   }
-
-  private triggerAnimFrame1: number;
-
-  private triggerAnimFrame2: number;
 
   render() {
     const { children, placeholder } = this.props;
