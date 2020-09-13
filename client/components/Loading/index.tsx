@@ -1,13 +1,7 @@
 import React, { FC } from 'react';
 
-type LoadingProps = {
-  error: string;
-};
+import { Container } from './styles';
 
-const Loading: FC<LoadingProps> = ({ error }) => {
-  if (error) throw new Error(error);
+const LoadableLoading: FC = () => <Container>Loading ...</Container>;
 
-  return <div>Loading ...</div>;
-};
-
-export default Loading;
+export default LoadableLoading;

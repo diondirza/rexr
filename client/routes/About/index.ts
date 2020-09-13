@@ -1,10 +1,5 @@
-import loadable from '@loadable/component';
+import { lazy } from '@loadable/component';
 
-import Loading from '@components/Loading';
+const AboutComponent = lazy(() => import(/* webpackChunkName: "about" */ './components'));
 
-const HomeComponent = loadable(() => import(/* webpackChunkName: "about" */ './components'), {
-  // @ts-ignore
-  fallback: Loading,
-});
-
-export default HomeComponent;
+export default AboutComponent;

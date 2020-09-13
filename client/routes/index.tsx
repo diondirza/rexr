@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Layout from '@components/Layout';
+import Loading from '@components/Loading';
 
 // #region import routes
 import HomeComponent from '@routes/Home';
@@ -10,10 +11,12 @@ import AboutComponent from '@routes/About';
 
 const Routes: FC = () => (
   <Layout>
-    <Switch>
-      <Route component={AboutComponent} path="/about" />
-      <Route exact component={HomeComponent} path="/" />
-    </Switch>
+    <Suspense fallback={<Loading />}>
+      <Switch>
+        <Route component={AboutComponent} path="/about" />
+        <Route exact component={HomeComponent} path="/" />
+      </Switch>
+    </Suspense>
   </Layout>
 );
 
