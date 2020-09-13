@@ -11,16 +11,17 @@ import App from './App';
 // import externalScripts from './external-scripts';
 
 const w = window as any;
-const history: History = createBrowserHistory();
-const gqlClient = new GraphQLClient({
-  url: '/graphql',
-  ssrMode: !w.csr,
-  cache: memCache({
-    initialState: w.__cache,
-  }),
-});
+const ready = w.csr ? (f: Function) => f() : loadableReady;
 
-loadableReady(() => {
+ready(() => {
+  const history: History = createBrowserHistory();
+  const gqlClient = new GraphQLClient({
+    url: '/graphql',
+    ssrMode: !w.csr,
+    cache: memCache({
+      initialState: w.__cache,
+    }),
+  });
   const container = document.getElementById('app');
   const bootstrap = w.csr ? render : hydrate;
   const props = {
