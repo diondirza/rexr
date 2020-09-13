@@ -15,7 +15,7 @@ const HomeView: FC = () => {
     <>
       <Helmet>
         <title>Hello World</title>
-        <link rel="canonical" href="https://www.rexr.com/" />
+        <link href="https://www.rexr.com/" rel="canonical" />
       </Helmet>
       <div>
         Hello world!

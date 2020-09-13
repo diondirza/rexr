@@ -11,8 +11,8 @@ import AboutComponent from '@routes/About';
 const Routes: FC = () => (
   <Layout>
     <Switch>
-      <Route path="/about" component={AboutComponent} />
-      <Route exact path="/" component={HomeComponent} />
+      <Route component={AboutComponent} path="/about" />
+      <Route exact component={HomeComponent} path="/" />
     </Switch>
   </Layout>
 );
