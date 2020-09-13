@@ -10,25 +10,23 @@ import ErrorBoundary from '@components/ErrorBoundary';
 import { GlobalProvider } from './context';
 import Routes from './routes';
 
-type AppProps = {
+interface AppProps {
   gqlClient: GraphQLClient;
   history: History;
-};
+}
 
-const App: FC<AppProps> = ({ gqlClient, history }) => {
-  return (
-    <HelmetProvider>
-      <GlobalProvider>
-        <GraphQLContext.Provider value={gqlClient}>
-          <ErrorBoundary>
-            <Router history={history}>
-              <Routes />
-            </Router>
-          </ErrorBoundary>
-        </GraphQLContext.Provider>
-      </GlobalProvider>
-    </HelmetProvider>
-  );
-};
+const App: FC<AppProps> = ({ gqlClient, history }) => (
+  <HelmetProvider>
+    <GlobalProvider>
+      <GraphQLContext.Provider value={gqlClient}>
+        <ErrorBoundary>
+          <Router history={history}>
+            <Routes />
+          </Router>
+        </ErrorBoundary>
+      </GraphQLContext.Provider>
+    </GlobalProvider>
+  </HelmetProvider>
+);
 
 export default hot(App);

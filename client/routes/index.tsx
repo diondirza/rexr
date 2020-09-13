@@ -1,4 +1,4 @@
-import React, { FC, Suspense } from 'react';
+import React, { FC } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Layout from '@components/Layout';
@@ -11,12 +11,14 @@ import AboutComponent from '@routes/About';
 
 const Routes: FC = () => (
   <Layout>
-    <Suspense fallback={<Loading />}>
-      <Switch>
-        <Route component={AboutComponent} path="/about" />
-        <Route exact component={HomeComponent} path="/" />
-      </Switch>
-    </Suspense>
+    <Switch>
+      <Route path="/about">
+        <AboutComponent fallback={<Loading />} />
+      </Route>
+      <Route exact path="/">
+        <HomeComponent fallback={<Loading />} />
+      </Route>
+    </Switch>
   </Layout>
 );
 

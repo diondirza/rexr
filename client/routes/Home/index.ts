@@ -1,5 +1,5 @@
-import { lazy } from '@loadable/component';
+import loadable from '@loadable/component';
 
-const HomeComponent = lazy(() => import(/* webpackChunkName: "home" */ './components'));
+const HomeComponent = loadable(() => import(/* webpackChunkName: "home" */ './components'));
 
 export default HomeComponent;
