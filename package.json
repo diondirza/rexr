@@ -115,7 +115,7 @@
     "ioredis": "4.19.4",
     "isomorphic-cookie": "1.2.4",
     "isomorphic-dompurify": "0.10.0",
-    "lodash": "4.17.20",
+    "lodash": "4.17.21",
     "make-promises-safe": "5.1.0",
     "node-fetch": "2.6.1",
     "pino": "6.9.0",
