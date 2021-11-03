@@ -136,7 +136,7 @@
     "url-polyfill": "1.1.12",
     "use-global-hook": "0.2.1",
     "uuid": "8.3.2",
-    "validator": "13.5.2"
+    "validator": "13.7.0"
   },
   "devDependencies": {
     "@babel/cli": "7.12.10",
